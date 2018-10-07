@@ -19,6 +19,11 @@ django_env:
   DJANGO_DB_PORT: "5432"
   DJANGO_DB_USER: "{{ postgres_db_user }}"
 
+django_admin_env:
+  ADMIN_EMAIL: admin@crowdhost.us
+  ADMIN_PASSWORD: "{{ admin_password }}"
+  ADMIN_USERNAME: admin
+
 gunicorn_venv: "{{ python_app_venv }}"
 gunicorn_working_dir: "{{ django_app_root }}"
 gunicorn_wsgi_app: "{{ python_app_package }}.wsgi:application"
