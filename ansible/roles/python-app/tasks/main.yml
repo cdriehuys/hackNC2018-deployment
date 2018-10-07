@@ -14,12 +14,6 @@
   apt:
     name: "{{ python_app_pip_package }}"
 
-- name: Install pipenv
-  become: true
-  pip:
-    executable: "{{ python_app_pip_command }}"
-    name: pipenv
-
 - name: Create directory to hold project
   become: true
   file:
@@ -35,17 +29,28 @@
     update: true
     version: "{{ python_app_repo_version }}"
 
-- name: Install dependencies
-  command: pipenv install --deploy
-  args:
-    chdir: "{{ python_app_project_root }}"
+- name: Set permissions on source code
+  become: true
+  file:
+    owner: ubuntu
+    path: "{{ python_app_project_root }}"
+    recurse: true
+    state: directory
 
-- name: Get location of virtual environment
-  command: pipenv --venv
-  args:
-    chdir: "{{ python_app_project_root }}"
-  register: venv_location
+- name: Create virtualenv directory
+  become: true
+  file:
+    owner: ubuntu
+    path: /opt/venvs
+    recurse: true
+    state: directory
+
+- name: Install dependencies
+  pip:
+    requirements: "{{ python_app_project_root }}/requirements.txt"
+    virtualenv: /opt/venvs/venv
+    virtualenv_python: "{{ python_app_python_version }}"
 
 - name: Save virtualenv location
   set_fact:
-    python_app_venv: "{{ venv_location.stdout }}"
+    python_app_venv: "/opt/venvs/venv"

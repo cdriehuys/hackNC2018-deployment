@@ -1,8 +1,8 @@
 ---
-python_app_repo: https://github.com/UltiManager/ultimanager-api
+python_app_repo: https://github.com/DersJ/hackNC2018
 
-python_app_name: ultimanager-api
-python_app_package: api
+python_app_name: crowdhost
+python_app_package: hacknc
 
 postgres_db_password: "{{ db_password }}"
 
@@ -11,7 +11,7 @@ django_app_root: "{{ python_app_project_root }}/{{ python_app_package }}"
 
 django_env:
   DJANGO_ALLOWED_HOSTS: "{{ domain_name }}"
-  DJANGO_SECRET_KEY: "{{ django_secret_key }}"
+  DJANGO_SECRET_KEY: "'{{ django_secret_key }}'"
 
   DJANGO_DB_HOST: localhost
   DJANGO_DB_NAME: "{{ postgres_db_name }}"
@@ -24,7 +24,7 @@ gunicorn_working_dir: "{{ django_app_root }}"
 gunicorn_wsgi_app: "{{ python_app_package }}.wsgi:application"
 
 letsencrypt_domain: "{{ domain_name }}"
-letsencrypt_email: "admin@ultimanager.com"
+letsencrypt_email: "chathan@driehuys.com"
 
 nginx_proxy_socket: "{{ gunicorn_socket_uri }}"
 nginx_server_name: "{{ domain_name }}"

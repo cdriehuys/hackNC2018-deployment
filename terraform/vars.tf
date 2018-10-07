@@ -1,5 +1,5 @@
 variable "application_name" {
-  default     = "ultimanager-api"
+  default     = "crowdhost"
   description = "The name of the application."
 }
 
@@ -20,7 +20,7 @@ variable "ami_publisher" {
 }
 
 variable "domain_name" {
-  default     = "ultimanager.com"
+  default     = "crowdhost.us"
   description = "Root domain name corresponding to Route 53 hosted zone."
 }
 
